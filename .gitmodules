@@ -1,0 +1,6 @@
+[submodule "fox32os"]
+	path = fox32os
+	url = https://github.com/fox32-arch/fox32os
+[submodule "fox32rom"]
+	path = fox32rom
+	url = https://github.com/fox32-arch/fox32rom
