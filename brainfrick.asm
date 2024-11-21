@@ -312,7 +312,6 @@ program: data.strz "
 #include "99bottles.b"
 "
 program_raw_size: data.32 0
-; Program is allocated at runtime
 program_size: data.32 0
 program_ptr: data.32 0
 
