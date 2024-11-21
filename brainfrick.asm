@@ -127,8 +127,6 @@ loop:
     cmp.8 [r0], TOK_LOOP_B
     ifz jmp op_loop_b
 
-    ;mov.8 r0, [r0]
-    ;call printc
     jmp loop_end
 
 op_add:
