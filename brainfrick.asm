@@ -153,7 +153,7 @@ op_print:
     mov r0, memory
     add r0, [memory_ptr]
     mov.8 r0, [r0]
-    call printc
+    call printci
     jmp loop_end
 
 op_read:
@@ -167,7 +167,7 @@ op_read_loop:
     ifz jmp op_read_loop
 
     mov r0, [input_buf]
-    call printc
+    call printci
 
     mov r0, memory
     add r0, [memory_ptr]
@@ -292,6 +292,16 @@ printc:
 
     pop r2
     pop r1
+    pop r0
+    ret
+
+printci: ; Massively slows printing speed but it is drawn immediately
+    call printc
+    push r0
+    mov r0, 0xFE
+    call printc
+    call printc
+    call printc
     pop r0
     ret
 
