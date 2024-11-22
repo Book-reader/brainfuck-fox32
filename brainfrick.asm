@@ -17,22 +17,43 @@ pop [arg_1]
 pop [arg_2]
 pop [arg_3]
 
-;mov r0, running
-;call printn
-;mov r0, program
-;call printn
+; TODO: find the current disk in the shell, or do disk:file like the shell does eg: `bf 1:fib.b`
+mov r0, [arg_0]
+mov r1, 1
+mov r2, program_file_struct
+call open
+cmp r0, 0
+ifnz jmp allocate_file
+mov r0, file_not_found
+call print
+call end_current_task
 
-mov r0, program
-call string_length
-mov [program_raw_size], r0
+allocate_file:
+    mov r0, program_file_struct
+    call get_size
+    call allocate_memory
+    mov [program], r0
+    ; The OS just seems to crash instead of returning 0 when OOM, but handle it anyway
+    cmp r0, 0
+    ifnz jmp load_file
+    mov r0, oom
+    call print
+    call end_current_task
 
+load_file:
+    mov r0, program_file_struct
+    call get_size
+    mov [program_raw_size], r0
+    mov r1, program_file_struct
+    mov r2, [program]
+    call read
 opt_loop:
     ; This prevents the system from being locked while the program runs but massivley drops performance
     ; call yield_task
-    mov r0, program
+    mov r0, [program]
     add r0, [program_ptr]
 
-    mov r1, program
+    mov r1, [program]
     add r1, [program_size]
 
 
@@ -102,10 +123,11 @@ loop_prepare:
    mov [program_ptr], 0
 
 loop:
-    ; This prevents the system from being locked while the program runs but massivley drops performance
-    ; call yield_task
+    inc [counter]
+    cmp [counter], 256
+    ifgteq call yield
 
-    mov r0, program
+    mov r0, [program]
     add r0, [program_ptr]
     cmp [program_ptr], [program_size]
     ifgt jmp exit
@@ -153,10 +175,11 @@ op_print:
     mov r0, memory
     add r0, [memory_ptr]
     mov.8 r0, [r0]
-    call printci
+    call printc
     jmp loop_end
 
 op_read:
+    call flush
 op_read_loop:
     mov r0, 1
     mov r1, [stream_ptr]
@@ -165,6 +188,8 @@ op_read_loop:
 
     cmp.8 [input_buf], 0
     ifz jmp op_read_loop
+    ;cmp.8 [input_buf], 8
+    ;ifz brk
 
     mov r0, [input_buf]
     call printci
@@ -183,12 +208,9 @@ op_loop_f:
 op_loop_f2:
     cmp r1, 0
     ifz jmp loop_end
-;;;;;
-    ;mov r0, running
-    ;call printn
-;;;;;
+
     inc [program_ptr]
-    mov r0, program
+    mov r0, [program]
     add r0, [program_ptr]
     cmp.8 [r0], TOK_LOOP_F
     ifz inc r1
@@ -204,13 +226,13 @@ op_loop_b:
     cmp.8 [r0], 0
     ifz jmp loop_end
 
-    mov r1, 1 ; The number of closed brackets
+    mov r1, 1 ; The number of closing brackets
 op_loop_b2:
     cmp r1, 0
     ifz jmp loop_end
 
     dec [program_ptr]
-    mov r0, program
+    mov r0, [program]
     add r0, [program_ptr]
     cmp.8 [r0], TOK_LOOP_F
     ifz dec r1
@@ -220,18 +242,6 @@ op_loop_b2:
     jmp op_loop_b2
 
 loop_end:
-    ; mov r0, program
-    ; add r0, [program_ptr]
-    ; mov r0, [r0]
-    ; call printc
-
-    ; mov r0, program
-    ; add r0, [program_ptr]
-    ; mov r0, [r0]
-    ; add r0, 48
-    ; call printc
-
-    
     inc [program_ptr]
     jmp loop
 
@@ -252,7 +262,14 @@ exit:
     mov r0, 10
     call printc
 exit_real:
+    mov r0, [program]
+    call free_memory
     call end_current_task
+
+yield:
+    mov [counter], 0
+    call yield_task
+    ret
 
 printn:
     call print
@@ -293,10 +310,15 @@ printc:
     pop r2
     pop r1
     pop r0
+    
     ret
 
 printci: ; Massively slows printing speed but it is drawn immediately
     call printc
+    call flush
+    ret
+
+flush:
     push r0
     mov r0, 0xFE
     call printc
@@ -305,19 +327,26 @@ printci: ; Massively slows printing speed but it is drawn immediately
     pop r0
     ret
 
+
 memory: data.fill 0, 30000
 memory_ptr: data.32 0
-; strz is automatically null terminated, str is not
-program: data.strz "
-#include "99bottles.b"
-"
+
+program: data.32 0
+
 program_raw_size: data.32 0
 program_size: data.32 0
 program_ptr: data.32 0
 
+program_file_struct: data.fill 0, 8
+
+file_not_found: data.str "File Not Found" data.8 10 data.8 0
+oom: data.str "Out Of Memory!" data.8 10 data.8 0
+
 temp_char: data.8 0
 
 input_buf: data.8 0
+
+counter: data.32 0
 
 stream_ptr: data.32 0
 arg_0: data.32 0
