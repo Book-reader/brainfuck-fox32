@@ -10,7 +10,6 @@ const TOK_LOOP_F: 0x07
 const TOK_LOOP_B: 0x08
 
 
-
 pop [stream_ptr]
 pop [arg_0]
 pop [arg_1]
@@ -31,31 +30,40 @@ call end_current_task
 allocate_file:
     mov r0, program_file_struct
     call get_size
+    mov [program_raw_size], r0
+
+    push r0
     call allocate_memory
     mov [program], r0
+    pop r0
     ; The OS just seems to crash instead of returning 0 when OOM, but handle it anyway
     cmp r0, 0
-    ifnz jmp load_file
-    mov r0, oom
-    call print
-    call end_current_task
+    ifz jmp out_of_mem
 
 load_file:
-    mov r0, program_file_struct
-    call get_size
-    mov [program_raw_size], r0
+    mov r0, [program_raw_size]
+    push r0
+    call allocate_memory
+    mov [repeats], r0
+    pop r0
+    cmp r0, 0
+    ifz jmp out_of_mem
+    
+    mov r0, [program_raw_size]
     mov r1, program_file_struct
     mov r2, [program]
     call read
 opt_loop:
-    ; This prevents the system from being locked while the program runs but massivley drops performance
-    ; call yield_task
     mov r0, [program]
     add r0, [program_ptr]
 
     mov r1, [program]
     add r1, [program_size]
 
+    ; set the number of repeats to the default (1)
+    mov r2, [repeats]
+    add r2, [program_size]
+    mov.8 [r2], 1
 
     cmp [program_ptr], [program_raw_size]
     ifz jmp loop_prepare
@@ -77,25 +85,23 @@ opt_loop:
     cmp.8 [r0], ']'
     ifz jmp opt_op_loop_b
 
-    ;mov.8 r0, [r0]
-    ;call printc
     jmp opt_loop_end
 
 opt_op_add:
-    mov.8 [r1], TOK_ADD
-    jmp opt_loop_end_s
+    movz.8 r3, TOK_ADD
+    jmp lookahead_repeat
 
 opt_op_sub:
-    mov.8 [r1], TOK_SUB
-    jmp opt_loop_end_s
+    movz.8 r3, TOK_SUB
+    jmp lookahead_repeat
 
 opt_op_next:
-    mov.8 [r1], TOK_NEXT
-    jmp opt_loop_end_s
+    movz.8 r3, TOK_NEXT
+    jmp lookahead_repeat
 
 opt_op_prev:
-    mov.8 [r1], TOK_PREV
-    jmp opt_loop_end_s
+    movz.8 r3, TOK_PREV
+    jmp lookahead_repeat
 
 opt_op_print:
     mov.8 [r1], TOK_PRINT
@@ -111,6 +117,37 @@ opt_op_loop_f:
 
 opt_op_loop_b:
     mov.8 [r1], TOK_LOOP_B
+    jmp opt_loop_end_s
+
+; [r0], the char to check for repeats of
+; [r1], the where the token is placed
+; [r2], the current number of repeats
+; r3, the token that the char corresponds to
+; [program_ptr], the current index of the program that [r0] corresponds to
+; [program_size], the current index of the program and repeats being overwritten by the token in r3
+lookahead_repeat:
+    mov r4, r0
+    inc r4
+    cmp.8 [r0], [r4]
+    ifz jmp lookahead_repeat_loop_start
+
+    mov.8 [r1], r3
+    jmp opt_loop_end_s
+
+lookahead_repeat_loop_start:
+    mov.8 [r1], r3
+lookahead_repeat_loop:
+    inc.8 [r2]
+
+    inc [program_ptr]
+    mov r0, [program]
+    add r0, [program_ptr]
+
+    mov r4, r0
+    inc r4
+
+    cmp.8 [r0], [r4]
+    ifz jmp lookahead_repeat_loop
     jmp opt_loop_end_s
 
 opt_loop_end_s:
@@ -131,6 +168,10 @@ loop:
     add r0, [program_ptr]
     cmp [program_ptr], [program_size]
     ifgt jmp exit
+
+    mov r1, [repeats]
+    add r1, [program_ptr]
+    movz.8 r1, [r1]
 
     cmp.8 [r0], TOK_ADD
     ifz jmp op_add
@@ -154,21 +195,21 @@ loop:
 op_add:
     mov.32 r0, memory
     add.32 r0, [memory_ptr]
-    inc.8 [r0]
+    add.8 [r0], r1
     jmp loop_end
 
 op_sub:
     mov r0, memory
     add r0, [memory_ptr]
-    dec.8 [r0]
+    sub.8 [r0], r1
     jmp loop_end
 
 op_next:
-    inc.32 [memory_ptr]
+    add.32 [memory_ptr], r1
     jmp loop_end
 
 op_prev:
-    dec.32 [memory_ptr]
+    sub.32 [memory_ptr], r1
     jmp loop_end
 
 op_print:
@@ -188,8 +229,6 @@ op_read_loop:
 
     cmp.8 [input_buf], 0
     ifz jmp op_read_loop
-    ;cmp.8 [input_buf], 8
-    ;ifz brk
 
     mov r0, [input_buf]
     call printci
@@ -264,6 +303,8 @@ exit:
 exit_real:
     mov r0, [program]
     call free_memory
+    mov r0, [repeats]
+    call free_memory
     call end_current_task
 
 yield:
@@ -327,6 +368,11 @@ flush:
     pop r0
     ret
 
+out_of_mem:
+    mov r0, oom
+    call print
+    call end_current_task
+
 
 memory: data.fill 0, 30000
 memory_ptr: data.32 0
@@ -336,6 +382,11 @@ program: data.32 0
 program_raw_size: data.32 0
 program_size: data.32 0
 program_ptr: data.32 0
+
+repeats: data.32 0
+;repeats_idx: data.32 0
+
+repeat: data.8 1
 
 program_file_struct: data.fill 0, 8
 
