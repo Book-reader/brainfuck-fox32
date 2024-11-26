@@ -146,6 +146,9 @@ lookahead_repeat_loop:
     mov r4, r0
     inc r4
 
+    ; check if the number of repeats is 255 and break to prevent wraparound
+    cmp.8 [r2], 0xFF
+    ifz jmp opt_loop_end_s
     cmp.8 [r0], [r4]
     ifz jmp lookahead_repeat_loop
     jmp opt_loop_end_s
@@ -361,12 +364,20 @@ printci: ; Massively slows printing speed but it is drawn immediately
 
 flush:
     push r0
-    mov r0, 0xFE
-    call printc
-    call printc
-    call printc
+    push r1
+    push r2
+
+    mov r2, flush_char     ; r2: source buffer
+    mov r0, 3             ; r0: length
+    mov r1, [stream_ptr]  ; r1: stream pointer
+    call write
+
+    pop r2
+    pop r1
     pop r0
+    
     ret
+
 
 out_of_mem:
     mov r0, oom
@@ -394,6 +405,7 @@ file_not_found: data.str "File Not Found" data.8 10 data.8 0
 oom: data.str "Out Of Memory!" data.8 10 data.8 0
 
 temp_char: data.8 0
+flush_char: data.8 0xFE data.8 0xFE data.8 0xFE
 
 input_buf: data.8 0
 
