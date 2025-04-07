@@ -8,366 +8,294 @@ pop [arg_3]
 mov r3, 0
 mov r4, 0
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+call yield_task
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
 mov r4, mem
 add r4, r3
@@ -376,11 +304,9 @@ mov r2, temp
 mov r0, 1
 mov r1, [stream_ptr]
 call write
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
 mov r4, mem
 add r4, r3
@@ -390,171 +316,138 @@ mov r0, 1
 mov r1, [stream_ptr]
 call write
 add r3, 1
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+call yield_task
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
 mov r4, mem
 add r4, r3
@@ -564,56 +457,45 @@ mov r0, 1
 mov r1, [stream_ptr]
 call write
 add r3, 1
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
 
-
-mov.32 r4, mem
-add.32 r4, r3
+mov r4, mem
+add r4, r3
 add.8 [r4], 1
-
 
 mov r4, mem
 add r4, r3
