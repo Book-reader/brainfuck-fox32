@@ -1,4 +1,5 @@
 // requires c3c b6f5938eda9109c8777cf451503580e47ed08dd9
+// TODO: directly output machine code
 module bf2fox32;
 
 import std::io;
@@ -85,7 +86,7 @@ TEMP_CHAR);
 			case '[':
 			case ']':
 				io::eprintfn("ERROR: '%c' unimplemented", c);
-				// return 1;
+				return 1;
 			default:
 				io::eprintfn("WARN: ignoring char '%c'", c);
 		}
