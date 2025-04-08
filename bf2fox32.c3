@@ -8,9 +8,6 @@ import std::collections::list;
 const MEM_PTR = "r3";
 const TEMP_REG = "r4";
 
-// const LOAD_AT_PTR = "mov " +++ TEMP_REG +++", " +++ MEM_NAME +++ `
-// add ` +++ TEMP_REG +++ ", " +++ MEM_PTR;
-
 enum BfInstType : char (inline char c)
 {
 	ADD = '+',
