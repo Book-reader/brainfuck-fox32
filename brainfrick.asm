@@ -18,7 +18,10 @@ pop [arg_3]
 
 ; TODO: find the current disk in the shell, or do disk:file like the shell does eg: `bf 1:fib.b`
 mov r0, [arg_0]
-mov r1, 1
+push r0
+call get_current_disk_id
+mov r1, r0
+pop r0
 mov r2, program_file_struct
 call open
 cmp r0, 0
