@@ -42,8 +42,15 @@ fn int main(String[] args)
 	fox32.pop("[arg_3]");
 
 	fox32.mov(MEM_PTR, 0);
-	fox32.mov("temp_ch", 0);
+	fox32.mov("[temp_ch]", 0);
 
+/*	// Allocate the program memory
+	fox32.mov("r0", 30000);
+	fox32.call("allocate_memory");
+	fox32.mov("[mem], r0")
+	fox32.cmp("r0", 0);
+	fox32.cond(z, call, "end_current_task"); // Exit if allocation fails
+*/
 	usz total_loops;
 	List(<usz>) braces;
 	braces.new_init();
@@ -53,27 +60,22 @@ fn int main(String[] args)
 	while (try char c = input_file.read_byte())
 	{
 		i++;
-		if (i % 50 == 0) fox32.call("yield_task");
-		$if $feature(DEBUG):
-			fox32.mov(TEMP_REG, c, W8);
-			fox32.mov("[temp_ch]", TEMP_REG, W8);
-			fox32.mov("r2", "temp_ch");
-			fox32.mov("r0", 1);
-			fox32.mov("r1", "[stream_ptr]");
-			fox32.call("write");
+		// if (i % 50 == 0) fox32.call("yield_task");
 
-			fox32.mov(TEMP_REG, 10, W8);
-			fox32.mov("[temp_ch]", TEMP_REG, W8);
-			fox32.mov("r2", TEMP_CHAR);
-			fox32.mov("r0", 1);
-			fox32.mov("r1", "[stream_ptr]");
-			fox32.call("write");
-		$endif
-
-		fox32.mov("r5", i);
+		// fox32.mov("r5", i);
 		// fox32.cmp(MEM_PTR, 1000);
 		// fox32.cond(gt, brk);
+		$if $feature(DEBUG):
+			if (try idx = "+-><[],.".index_of_char(c))
+			{
+				fox32.printcc(c);
+				fox32.printcc(0xFE);
+				fox32.printcc(0xFE);
+				fox32.printcc(0xFE);
+			}
+		$endif
 
+		// fox32.brk();
 		switch (c)
 		{
 			case '+':
@@ -91,6 +93,7 @@ fn int main(String[] args)
 				fox32.sub(MEM_PTR, 1);
 				// fox32.load_at_ptr();
 			case '.':
+				// fox32.brk();
 				fox32.load_at_ptr();
 				fox32.printc();
 			case ',':
@@ -133,6 +136,7 @@ arg_1: data.32 0
 arg_2: data.32 0
 arg_3: data.32 0
 temp_ch: data.8 0
+; mem: data.32 0
 mem: data.fill 0, 30000
 #include "./fox32rom/fox32rom.def"
 #include "./fox32os/fox32os.def"
@@ -208,7 +212,7 @@ macro void Fox32.cond(&self, #cond, #inst, ...) @safemacro
 	self.#inst($vasplat);
 }
 
-macro void Fox32.printci(&self, val)
+macro void Fox32.printcc(&self, val)
 {
 	self.mov(TEMP_REG, val, W8);
 	self.printc();
@@ -216,7 +220,7 @@ macro void Fox32.printci(&self, val)
 
 fn void Fox32.printc(&self)
 {
-	self.mov("[temp_ch]", TEMP_REG, W8);
+	self.mov("[temp_ch]", self.deref(TEMP_REG), W8);
 	self.mov("r2", "temp_ch");
 	self.mov("r0", 1);
 	self.mov("r1", "[stream_ptr]");
