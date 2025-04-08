@@ -3,6 +3,7 @@
 module bf2fox32;
 
 import std::io;
+import std::collections::list;
 
 const MEM_PTR = "r3";
 const TEMP_REG = "r4";
@@ -14,7 +15,6 @@ add ` +++ TEMP_REG +++ ", " +++ MEM_PTR;
 
 fn int main(String[] args)
 {
-	usz total_loops, closed_loops;
 	if (args.len != 3)
 	{
 		io::eprintfn("Usage: %s <input file>.b <output file>.asm", args[0]);
@@ -47,6 +47,11 @@ mov %s, 0
 mov %s, 0
 `, MEM_PTR, TEMP_REG);
 
+	usz total_loops;
+	List(<usz>) braces;
+	braces.new_init();
+	defer braces.free();
+
 	usz i;
 	while (try char c = input_file.read_byte())
 	{
@@ -75,6 +80,11 @@ TEMP_CHAR, TEMP_REG,
 TEMP_CHAR);
 		$endif
 
+		io::fprintfn(&output_file, `
+mov r5, %s
+cmp %s, 1000
+ifgt brk
+`, i, MEM_PTR);
 
 		switch (c)
 		{
@@ -105,30 +115,27 @@ TEMP_CHAR);
 				io::eprintfn("ERROR: '%c' unimplemented", c);
 				return 1;
 			case '[':
-				io::fprintfn(&output_file, `
-%s
-cmp.8 [%s], 0
+				io::fprintfn(&output_file, LOAD_AT_PTR +++ `
+cmp.8 0, [%s]
 ifz jmp loop_end_%s
 loop_start_%s:
 `,
-LOAD_AT_PTR,
 TEMP_REG,
 total_loops,
 total_loops,
 );
+				braces.push(total_loops);
 				total_loops ++;
 			case ']':
-				io::fprintfn(&output_file, `
-%s
-cmp.8 [%s], 0
+				usz idx = braces.pop()!!;
+				io::fprintfn(&output_file, LOAD_AT_PTR +++ `
+cmp.8 0, [%s]
 ifnz jmp loop_start_%s
 loop_end_%s:
 `,
-LOAD_AT_PTR,
 TEMP_REG,
-closed_loops,
-closed_loops);
-				closed_loops ++;
+idx,
+idx);
 			default:
 				io::eprintfn("WARN: ignoring char '%c'", c);
 		}

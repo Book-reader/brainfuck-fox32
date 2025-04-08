@@ -143,8 +143,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_1
-loop_end_1:
+ifnz jmp loop_start_2
+loop_end_2:
 
 add r3, 1
 
@@ -162,8 +162,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_2
-loop_end_2:
+ifnz jmp loop_start_3
+loop_end_3:
 
 sub r3, 1
 sub r3, 1
@@ -194,8 +194,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_3
-loop_end_3:
+ifnz jmp loop_start_4
+loop_end_4:
 
 add r3, 1
 add r3, 1
@@ -222,8 +222,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_4
-loop_end_4:
+ifnz jmp loop_start_5
+loop_end_5:
 
 add r3, 1
 call yield_task
@@ -244,8 +244,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_5
-loop_end_5:
+ifnz jmp loop_start_6
+loop_end_6:
 
 sub r3, 1
 sub r3, 1
@@ -331,8 +331,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_6
-loop_end_6:
+ifnz jmp loop_start_9
+loop_end_9:
 
 sub r3, 1
 sub r3, 1
@@ -344,8 +344,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_7
-loop_end_7:
+ifnz jmp loop_start_8
+loop_end_8:
 
 add r3, 1
 
@@ -369,8 +369,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_8
-loop_end_8:
+ifnz jmp loop_start_10
+loop_end_10:
 
 add r3, 1
 
@@ -439,8 +439,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_9
-loop_end_9:
+ifnz jmp loop_start_11
+loop_end_11:
 
 sub r3, 1
 sub r3, 1
@@ -457,8 +457,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_10
-loop_end_10:
+ifnz jmp loop_start_7
+loop_end_7:
 
 mov r4, mem
 add r4, r3
@@ -518,8 +518,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_11
-loop_end_11:
+ifnz jmp loop_start_12
+loop_end_12:
 
 add r3, 1
 add r3, 1
@@ -551,8 +551,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_12
-loop_end_12:
+ifnz jmp loop_start_14
+loop_end_14:
 
 sub r3, 1
 call yield_task
@@ -591,8 +591,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_14
-loop_end_14:
+ifnz jmp loop_start_15
+loop_end_15:
 
 mov r4, mem
 add r4, r3
@@ -627,8 +627,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_15
-loop_end_15:
+ifnz jmp loop_start_16
+loop_end_16:
 
 sub r3, 1
 sub r3, 1
@@ -662,8 +662,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_16
-loop_end_16:
+ifnz jmp loop_start_17
+loop_end_17:
 
 add r3, 1
 add r3, 1
@@ -694,8 +694,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_17
-loop_end_17:
+ifnz jmp loop_start_18
+loop_end_18:
 
 add r3, 1
 
@@ -719,8 +719,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_18
-loop_end_18:
+ifnz jmp loop_start_19
+loop_end_19:
 
 sub r3, 1
 sub r3, 1
@@ -751,8 +751,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_19
-loop_end_19:
+ifnz jmp loop_start_21
+loop_end_21:
 
 sub r3, 1
 
@@ -770,15 +770,15 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_20
-loop_end_20:
+ifnz jmp loop_start_22
+loop_end_22:
 
 
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_21
-loop_end_21:
+ifnz jmp loop_start_20
+loop_end_20:
 
 add r3, 1
 add r3, 1
@@ -810,8 +810,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_22
-loop_end_22:
+ifnz jmp loop_start_24
+loop_end_24:
 
 sub r3, 1
 mov r4, mem
@@ -926,8 +926,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_24
-loop_end_24:
+ifnz jmp loop_start_25
+loop_end_25:
 
 add r3, 1
 add r3, 1
@@ -959,8 +959,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_25
-loop_end_25:
+ifnz jmp loop_start_26
+loop_end_26:
 
 add r3, 1
 add r3, 1
@@ -987,8 +987,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_26
-loop_end_26:
+ifnz jmp loop_start_27
+loop_end_27:
 
 sub r3, 1
 
@@ -1024,8 +1024,8 @@ call yield_task
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_27
-loop_end_27:
+ifnz jmp loop_start_28
+loop_end_28:
 
 sub r3, 1
 sub r3, 1
@@ -1057,8 +1057,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_28
-loop_end_28:
+ifnz jmp loop_start_29
+loop_end_29:
 
 add r3, 1
 
@@ -1076,8 +1076,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_29
-loop_end_29:
+ifnz jmp loop_start_30
+loop_end_30:
 
 mov r4, mem
 add r4, r3
@@ -1144,8 +1144,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_30
-loop_end_30:
+ifnz jmp loop_start_31
+loop_end_31:
 
 sub r3, 1
 mov r4, mem
@@ -1222,8 +1222,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_31
-loop_end_31:
+ifnz jmp loop_start_32
+loop_end_32:
 
 sub r3, 1
 mov r4, mem
@@ -1315,8 +1315,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_32
-loop_end_32:
+ifnz jmp loop_start_33
+loop_end_33:
 
 sub r3, 1
 mov r4, mem
@@ -1468,8 +1468,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_33
-loop_end_33:
+ifnz jmp loop_start_34
+loop_end_34:
 
 add r3, 1
 add r3, 1
@@ -1499,8 +1499,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_34
-loop_end_34:
+ifnz jmp loop_start_35
+loop_end_35:
 
 sub r3, 1
 
@@ -1590,8 +1590,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_35
-loop_end_35:
+ifnz jmp loop_start_36
+loop_end_36:
 
 sub r3, 1
 sub r3, 1
@@ -1612,8 +1612,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_36
-loop_end_36:
+ifnz jmp loop_start_37
+loop_end_37:
 
 add r3, 1
 mov r4, mem
@@ -1681,8 +1681,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_37
-loop_end_37:
+ifnz jmp loop_start_38
+loop_end_38:
 
 sub r3, 1
 mov r4, mem
@@ -1783,8 +1783,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_38
-loop_end_38:
+ifnz jmp loop_start_39
+loop_end_39:
 
 sub r3, 1
 mov r4, mem
@@ -1932,8 +1932,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_39
-loop_end_39:
+ifnz jmp loop_start_40
+loop_end_40:
 
 sub r3, 1
 mov r4, mem
@@ -2029,8 +2029,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_40
-loop_end_40:
+ifnz jmp loop_start_41
+loop_end_41:
 
 sub r3, 1
 mov r4, mem
@@ -2216,8 +2216,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_41
-loop_end_41:
+ifnz jmp loop_start_42
+loop_end_42:
 
 sub r3, 1
 mov r4, mem
@@ -2326,8 +2326,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_42
-loop_end_42:
+ifnz jmp loop_start_43
+loop_end_43:
 
 sub r3, 1
 mov r4, mem
@@ -2446,8 +2446,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_43
-loop_end_43:
+ifnz jmp loop_start_44
+loop_end_44:
 
 sub r3, 1
 mov r4, mem
@@ -2556,8 +2556,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_44
-loop_end_44:
+ifnz jmp loop_start_45
+loop_end_45:
 
 sub r3, 1
 mov r4, mem
@@ -2744,8 +2744,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_45
-loop_end_45:
+ifnz jmp loop_start_46
+loop_end_46:
 
 sub r3, 1
 mov r4, mem
@@ -2853,8 +2853,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_46
-loop_end_46:
+ifnz jmp loop_start_47
+loop_end_47:
 
 sub r3, 1
 mov r4, mem
@@ -2939,8 +2939,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_47
-loop_end_47:
+ifnz jmp loop_start_48
+loop_end_48:
 
 sub r3, 1
 mov r4, mem
@@ -3103,8 +3103,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_48
-loop_end_48:
+ifnz jmp loop_start_49
+loop_end_49:
 
 sub r3, 1
 mov r4, mem
@@ -3183,8 +3183,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_49
-loop_end_49:
+ifnz jmp loop_start_50
+loop_end_50:
 
 add r3, 1
 add r3, 1
@@ -3211,8 +3211,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_50
-loop_end_50:
+ifnz jmp loop_start_51
+loop_end_51:
 
 sub r3, 1
 
@@ -3248,8 +3248,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_51
-loop_end_51:
+ifnz jmp loop_start_52
+loop_end_52:
 
 sub r3, 1
 sub r3, 1
@@ -3324,8 +3324,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_52
-loop_end_52:
+ifnz jmp loop_start_53
+loop_end_53:
 
 sub r3, 1
 mov r4, mem
@@ -3410,8 +3410,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_53
-loop_end_53:
+ifnz jmp loop_start_54
+loop_end_54:
 
 sub r3, 1
 mov r4, mem
@@ -3503,8 +3503,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_54
-loop_end_54:
+ifnz jmp loop_start_55
+loop_end_55:
 
 sub r3, 1
 mov r4, mem
@@ -3656,8 +3656,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_55
-loop_end_55:
+ifnz jmp loop_start_56
+loop_end_56:
 
 add r3, 1
 add r3, 1
@@ -3687,8 +3687,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_56
-loop_end_56:
+ifnz jmp loop_start_57
+loop_end_57:
 
 sub r3, 1
 
@@ -3778,8 +3778,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_57
-loop_end_57:
+ifnz jmp loop_start_58
+loop_end_58:
 
 sub r3, 1
 sub r3, 1
@@ -3800,8 +3800,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_58
-loop_end_58:
+ifnz jmp loop_start_59
+loop_end_59:
 
 add r3, 1
 mov r4, mem
@@ -3869,8 +3869,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_59
-loop_end_59:
+ifnz jmp loop_start_60
+loop_end_60:
 
 sub r3, 1
 mov r4, mem
@@ -3971,8 +3971,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_60
-loop_end_60:
+ifnz jmp loop_start_61
+loop_end_61:
 
 sub r3, 1
 mov r4, mem
@@ -4120,8 +4120,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_61
-loop_end_61:
+ifnz jmp loop_start_62
+loop_end_62:
 
 sub r3, 1
 mov r4, mem
@@ -4217,8 +4217,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_62
-loop_end_62:
+ifnz jmp loop_start_63
+loop_end_63:
 
 sub r3, 1
 mov r4, mem
@@ -4412,8 +4412,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_63
-loop_end_63:
+ifnz jmp loop_start_64
+loop_end_64:
 
 sub r3, 1
 mov r4, mem
@@ -4533,8 +4533,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_64
-loop_end_64:
+ifnz jmp loop_start_65
+loop_end_65:
 
 sub r3, 1
 mov r4, mem
@@ -4784,8 +4784,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_65
-loop_end_65:
+ifnz jmp loop_start_66
+loop_end_66:
 
 sub r3, 1
 mov r4, mem
@@ -4890,8 +4890,8 @@ call yield_task
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_66
-loop_end_66:
+ifnz jmp loop_start_67
+loop_end_67:
 
 sub r3, 1
 mov r4, mem
@@ -5045,8 +5045,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_67
-loop_end_67:
+ifnz jmp loop_start_68
+loop_end_68:
 
 sub r3, 1
 mov r4, mem
@@ -5147,8 +5147,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_68
-loop_end_68:
+ifnz jmp loop_start_69
+loop_end_69:
 
 sub r3, 1
 mov r4, mem
@@ -5390,8 +5390,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_69
-loop_end_69:
+ifnz jmp loop_start_70
+loop_end_70:
 
 sub r3, 1
 mov r4, mem
@@ -5500,8 +5500,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_70
-loop_end_70:
+ifnz jmp loop_start_71
+loop_end_71:
 
 sub r3, 1
 mov r4, mem
@@ -5704,8 +5704,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_71
-loop_end_71:
+ifnz jmp loop_start_72
+loop_end_72:
 
 sub r3, 1
 mov r4, mem
@@ -5813,8 +5813,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_72
-loop_end_72:
+ifnz jmp loop_start_73
+loop_end_73:
 
 sub r3, 1
 mov r4, mem
@@ -5875,8 +5875,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_73
-loop_end_73:
+ifnz jmp loop_start_74
+loop_end_74:
 
 sub r3, 1
 mov r4, mem
@@ -5940,8 +5940,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_74
-loop_end_74:
+ifnz jmp loop_start_75
+loop_end_75:
 
 sub r3, 1
 mov r4, mem
@@ -6048,8 +6048,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_75
-loop_end_75:
+ifnz jmp loop_start_76
+loop_end_76:
 
 call yield_task
 sub r3, 1
@@ -6154,8 +6154,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_76
-loop_end_76:
+ifnz jmp loop_start_77
+loop_end_77:
 
 sub r3, 1
 mov r4, mem
@@ -6323,8 +6323,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_77
-loop_end_77:
+ifnz jmp loop_start_78
+loop_end_78:
 
 sub r3, 1
 mov r4, mem
@@ -6441,8 +6441,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_78
-loop_end_78:
+ifnz jmp loop_start_79
+loop_end_79:
 
 sub r3, 1
 mov r4, mem
@@ -6506,8 +6506,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_79
-loop_end_79:
+ifnz jmp loop_start_80
+loop_end_80:
 
 sub r3, 1
 mov r4, mem
@@ -6748,8 +6748,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_80
-loop_end_80:
+ifnz jmp loop_start_81
+loop_end_81:
 
 sub r3, 1
 mov r4, mem
@@ -6797,8 +6797,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_81
-loop_end_81:
+ifnz jmp loop_start_82
+loop_end_82:
 
 sub r3, 1
 sub r3, 1
@@ -6823,8 +6823,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_82
-loop_end_82:
+ifnz jmp loop_start_83
+loop_end_83:
 
 add r3, 1
 
@@ -6843,8 +6843,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_83
-loop_end_83:
+ifnz jmp loop_start_84
+loop_end_84:
 
 sub r3, 1
 sub r3, 1
@@ -6875,8 +6875,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_84
-loop_end_84:
+ifnz jmp loop_start_85
+loop_end_85:
 
 add r3, 1
 add r3, 1
@@ -6903,8 +6903,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_85
-loop_end_85:
+ifnz jmp loop_start_86
+loop_end_86:
 
 add r3, 1
 add r3, 1
@@ -6924,8 +6924,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_86
-loop_end_86:
+ifnz jmp loop_start_87
+loop_end_87:
 
 sub r3, 1
 sub r3, 1
@@ -7012,8 +7012,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_87
-loop_end_87:
+ifnz jmp loop_start_90
+loop_end_90:
 
 sub r3, 1
 sub r3, 1
@@ -7025,8 +7025,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_88
-loop_end_88:
+ifnz jmp loop_start_89
+loop_end_89:
 
 add r3, 1
 
@@ -7050,8 +7050,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_89
-loop_end_89:
+ifnz jmp loop_start_91
+loop_end_91:
 
 add r3, 1
 
@@ -7119,8 +7119,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_90
-loop_end_90:
+ifnz jmp loop_start_92
+loop_end_92:
 
 sub r3, 1
 sub r3, 1
@@ -7137,8 +7137,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_91
-loop_end_91:
+ifnz jmp loop_start_88
+loop_end_88:
 
 mov r4, mem
 add r4, r3
@@ -7199,8 +7199,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_92
-loop_end_92:
+ifnz jmp loop_start_93
+loop_end_93:
 
 add r3, 1
 add r3, 1
@@ -7232,8 +7232,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_93
-loop_end_93:
+ifnz jmp loop_start_95
+loop_end_95:
 
 sub r3, 1
 sub r3, 1
@@ -7271,8 +7271,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_95
-loop_end_95:
+ifnz jmp loop_start_96
+loop_end_96:
 
 mov r4, mem
 add r4, r3
@@ -7307,8 +7307,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_96
-loop_end_96:
+ifnz jmp loop_start_97
+loop_end_97:
 
 sub r3, 1
 call yield_task
@@ -7343,8 +7343,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_97
-loop_end_97:
+ifnz jmp loop_start_98
+loop_end_98:
 
 add r3, 1
 add r3, 1
@@ -7374,8 +7374,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_98
-loop_end_98:
+ifnz jmp loop_start_99
+loop_end_99:
 
 sub r3, 1
 add r3, 1
@@ -7401,8 +7401,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_99
-loop_end_99:
+ifnz jmp loop_start_100
+loop_end_100:
 
 sub r3, 1
 sub r3, 1
@@ -7433,8 +7433,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_100
-loop_end_100:
+ifnz jmp loop_start_102
+loop_end_102:
 
 sub r3, 1
 
@@ -7452,15 +7452,15 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_101
-loop_end_101:
+ifnz jmp loop_start_103
+loop_end_103:
 
 
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_102
-loop_end_102:
+ifnz jmp loop_start_101
+loop_end_101:
 
 call yield_task
 add r3, 1
@@ -7493,8 +7493,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_103
-loop_end_103:
+ifnz jmp loop_start_105
+loop_end_105:
 
 sub r3, 1
 mov r4, mem
@@ -7608,8 +7608,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_105
-loop_end_105:
+ifnz jmp loop_start_106
+loop_end_106:
 
 add r3, 1
 add r3, 1
@@ -7642,8 +7642,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_106
-loop_end_106:
+ifnz jmp loop_start_107
+loop_end_107:
 
 add r3, 1
 add r3, 1
@@ -7670,8 +7670,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_107
-loop_end_107:
+ifnz jmp loop_start_108
+loop_end_108:
 
 sub r3, 1
 
@@ -7706,8 +7706,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_108
-loop_end_108:
+ifnz jmp loop_start_109
+loop_end_109:
 
 sub r3, 1
 sub r3, 1
@@ -7739,8 +7739,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_109
-loop_end_109:
+ifnz jmp loop_start_110
+loop_end_110:
 
 add r3, 1
 
@@ -7758,8 +7758,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_110
-loop_end_110:
+ifnz jmp loop_start_111
+loop_end_111:
 
 mov r4, mem
 add r4, r3
@@ -7827,8 +7827,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_111
-loop_end_111:
+ifnz jmp loop_start_112
+loop_end_112:
 
 sub r3, 1
 mov r4, mem
@@ -7904,8 +7904,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_112
-loop_end_112:
+ifnz jmp loop_start_113
+loop_end_113:
 
 sub r3, 1
 mov r4, mem
@@ -7998,8 +7998,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_113
-loop_end_113:
+ifnz jmp loop_start_114
+loop_end_114:
 
 sub r3, 1
 mov r4, mem
@@ -8151,8 +8151,8 @@ call yield_task
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_114
-loop_end_114:
+ifnz jmp loop_start_115
+loop_end_115:
 
 add r3, 1
 add r3, 1
@@ -8182,8 +8182,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_115
-loop_end_115:
+ifnz jmp loop_start_116
+loop_end_116:
 
 sub r3, 1
 
@@ -8272,8 +8272,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_116
-loop_end_116:
+ifnz jmp loop_start_117
+loop_end_117:
 
 sub r3, 1
 sub r3, 1
@@ -8294,8 +8294,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_117
-loop_end_117:
+ifnz jmp loop_start_118
+loop_end_118:
 
 call yield_task
 add r3, 1
@@ -8364,8 +8364,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_118
-loop_end_118:
+ifnz jmp loop_start_119
+loop_end_119:
 
 sub r3, 1
 mov r4, mem
@@ -8465,8 +8465,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_119
-loop_end_119:
+ifnz jmp loop_start_120
+loop_end_120:
 
 sub r3, 1
 mov r4, mem
@@ -8614,8 +8614,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_120
-loop_end_120:
+ifnz jmp loop_start_121
+loop_end_121:
 
 sub r3, 1
 mov r4, mem
@@ -8712,8 +8712,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_121
-loop_end_121:
+ifnz jmp loop_start_122
+loop_end_122:
 
 sub r3, 1
 mov r4, mem
@@ -8899,8 +8899,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_122
-loop_end_122:
+ifnz jmp loop_start_123
+loop_end_123:
 
 sub r3, 1
 mov r4, mem
@@ -9008,8 +9008,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_123
-loop_end_123:
+ifnz jmp loop_start_124
+loop_end_124:
 
 sub r3, 1
 mov r4, mem
@@ -9129,8 +9129,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_124
-loop_end_124:
+ifnz jmp loop_start_125
+loop_end_125:
 
 sub r3, 1
 mov r4, mem
@@ -9238,8 +9238,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_125
-loop_end_125:
+ifnz jmp loop_start_126
+loop_end_126:
 
 sub r3, 1
 mov r4, mem
@@ -9426,8 +9426,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_126
-loop_end_126:
+ifnz jmp loop_start_127
+loop_end_127:
 
 sub r3, 1
 mov r4, mem
@@ -9536,8 +9536,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_127
-loop_end_127:
+ifnz jmp loop_start_128
+loop_end_128:
 
 sub r3, 1
 mov r4, mem
@@ -9621,8 +9621,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_128
-loop_end_128:
+ifnz jmp loop_start_129
+loop_end_129:
 
 sub r3, 1
 mov r4, mem
@@ -9785,8 +9785,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_129
-loop_end_129:
+ifnz jmp loop_start_130
+loop_end_130:
 
 sub r3, 1
 mov r4, mem
@@ -9889,8 +9889,8 @@ sub.8 [r4], 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_130
-loop_end_130:
+ifnz jmp loop_start_131
+loop_end_131:
 
 sub r3, 1
 sub r3, 1
@@ -9899,8 +9899,8 @@ sub r3, 1
 mov r4, mem
 add r4, r3
 cmp.8 [r4], 0
-ifnz jmp loop_start_131
-loop_end_131:
+ifnz jmp loop_start_1
+loop_end_1:
 
 call end_current_task
 

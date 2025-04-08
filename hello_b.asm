@@ -40,10 +40,9 @@ mov r4, mem
 add r4, r3
 add.8 [r4], 1
 
-
 mov r4, mem
 add r4, r3
-cmp.8 [r4], 0
+cmp.8 0, [r4]
 ifz jmp loop_end_0
 loop_start_0:
 
@@ -234,10 +233,9 @@ mov r4, mem
 add r4, r3
 sub.8 [r4], 1
 
-
 mov r4, mem
 add r4, r3
-cmp.8 [r4], 0
+cmp.8 0, [r4]
 ifnz jmp loop_start_0
 loop_end_0:
 
