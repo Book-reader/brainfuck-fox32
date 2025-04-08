@@ -1,5 +1,5 @@
 // requires c3c b6f5938eda9109c8777cf451503580e47ed08dd9
-// TODO: directly output machine code
+// TODO: directly output machine code / use xrasm & port to fox32 either with assembly or jackal
 module bf2fox32;
 
 import std::io;
