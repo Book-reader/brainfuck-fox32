@@ -7,11 +7,9 @@ import std::collections::list;
 
 const MEM_PTR = "r3";
 const TEMP_REG = "r4";
-const MEM_NAME = "mem";
-const TEMP_CHAR = "temp";
 
-const LOAD_AT_PTR = "mov " +++ TEMP_REG +++", " +++ MEM_NAME +++ `
-add ` +++ TEMP_REG +++ ", " +++ MEM_PTR;
+// const LOAD_AT_PTR = "mov " +++ TEMP_REG +++", " +++ MEM_NAME +++ `
+// add ` +++ TEMP_REG +++ ", " +++ MEM_PTR;
 
 fn int main(String[] args)
 {
@@ -35,17 +33,16 @@ fn int main(String[] args)
 		return 1;
 	}
 	defer output_file.close()!!;
+	Fox32 fox32 = {&output_file};
 
-	io::fprintfn(&output_file, `
-pop [stream_ptr]
-pop [arg_0]
-pop [arg_1]
-pop [arg_2]
-pop [arg_3]
+	fox32.pop("[stream_ptr]");
+	fox32.pop("[arg_0]");
+	fox32.pop("[arg_1]");
+	fox32.pop("[arg_2]");
+	fox32.pop("[arg_3]");
 
-mov %s, 0
-mov %s, 0
-`, MEM_PTR, TEMP_REG);
+	fox32.mov(MEM_PTR, 0);
+	fox32.mov("temp_ch", 0);
 
 	usz total_loops;
 	List(<usz>) braces;
@@ -56,92 +53,78 @@ mov %s, 0
 	while (try char c = input_file.read_byte())
 	{
 		i++;
-		if (i % 50 == 0) io::fprintfn(&output_file, "call yield_task");
+		if (i % 50 == 0) fox32.call("yield_task");
 		$if $feature(DEBUG):
-			io::fprintfn(&output_file, `
-mov.8 %s, '%c'
-mov.8 [%s], %s
-mov r2, %s
-mov r0, 1
-mov r1, [stream_ptr]
-call write`,
-TEMP_REG, c,
-TEMP_CHAR, TEMP_REG,
-TEMP_CHAR);
-			io::fprintfn(&output_file, `
-mov.8 %s, %s
-mov.8 [%s], %s
-mov r2, %s
-mov r0, 1
-mov r1, [stream_ptr]
-call write`,
-TEMP_REG, 10,
-TEMP_CHAR, TEMP_REG,
-TEMP_CHAR);
+			fox32.mov(TEMP_REG, c, W8);
+			fox32.mov("[temp_ch]", TEMP_REG, W8);
+			fox32.mov("r2", "temp_ch");
+			fox32.mov("r0", 1);
+			fox32.mov("r1", "[stream_ptr]");
+			fox32.call("write");
+
+			fox32.mov(TEMP_REG, 10, W8);
+			fox32.mov("[temp_ch]", TEMP_REG, W8);
+			fox32.mov("r2", TEMP_CHAR);
+			fox32.mov("r0", 1);
+			fox32.mov("r1", "[stream_ptr]");
+			fox32.call("write");
 		$endif
 
-		io::fprintfn(&output_file, `
-mov r5, %s
-cmp %s, 1000
-ifgt brk
-`, i, MEM_PTR);
+		fox32.mov("r5", i);
+		// fox32.cmp(MEM_PTR, 1000);
+		// fox32.cond(gt, brk);
 
 		switch (c)
 		{
 			case '+':
-				io::fprintfn(&output_file, LOAD_AT_PTR +++ `
-add.8 [%s], 1
-`, 
-TEMP_REG);
+				// TODO: potential optimisation is to only call `load_at_ptr()` after `>` or `<` instead of here so >+++ loads once instead of 3 times
+				fox32.load_at_ptr();
+				fox32.add(fox32.deref(TEMP_REG), 1, W8);
 			case '-':
-				io::fprintfn(&output_file, LOAD_AT_PTR +++ `
-sub.8 [%s], 1
-`, 
-TEMP_REG);
+				// TODO: same as above
+				fox32.load_at_ptr();
+				fox32.sub(fox32.deref(TEMP_REG), 1, W8);
 			case '>':
-				io::fprintfn(&output_file, "add %s, 1", MEM_PTR);
+				fox32.add(MEM_PTR, 1);
+				// fox32.load_at_ptr();
 			case '<':
-				io::fprintfn(&output_file, "sub %s, 1", MEM_PTR);
+				fox32.sub(MEM_PTR, 1);
+				// fox32.load_at_ptr();
 			case '.':
-				io::fprintfn(&output_file, LOAD_AT_PTR +++ `
-mov.8 [%s], [%s]
-mov r2, %s
-mov r0, 1
-mov r1, [stream_ptr]
-call write`,
-TEMP_CHAR, TEMP_REG,
-TEMP_CHAR);
+				fox32.load_at_ptr();
+				fox32.printc();
 			case ',':
-				io::eprintfn("ERROR: '%c' unimplemented", c);
-				return 1;
+				// io::eprintfn("ERROR: '%c' unimplemented", c);
+				// return 1;
+				fox32.brk();
 			case '[':
-				io::fprintfn(&output_file, LOAD_AT_PTR +++ `
-cmp.8 0, [%s]
-ifz jmp loop_end_%s
-loop_start_%s:
-`,
-TEMP_REG,
-total_loops,
-total_loops,
-);
+				// TODO: this also might be able to be removed, but only once I know everything works
+				fox32.load_at_ptr();
+				fox32.cmp(0, fox32.deref(TEMP_REG), W8);
+				@pool()
+				{
+					fox32.cond(z, jmp, string::tformat("loop_end_%s", total_loops));
+					fox32.label(string::tformat("loop_start_%s", total_loops));
+				};
+
 				braces.push(total_loops);
 				total_loops ++;
 			case ']':
 				usz idx = braces.pop()!!;
-				io::fprintfn(&output_file, LOAD_AT_PTR +++ `
-cmp.8 0, [%s]
-ifnz jmp loop_start_%s
-loop_end_%s:
-`,
-TEMP_REG,
-idx,
-idx);
+				// TODO: same as above
+				fox32.load_at_ptr();
+				fox32.cmp(0, fox32.deref(TEMP_REG), W8);
+				@pool()
+				{
+					fox32.cond(nz, jmp, string::tformat("loop_start_%s", idx));
+					fox32.label(string::tformat("loop_end_%s", idx));
+				};
 			default:
 				io::eprintfn("WARN: ignoring char '%c'", c);
 		}
 	}
 
-	io::fprintfn(&output_file, "call end_current_task");
+	fox32.call("end_current_task");
 
 	io::fprintfn(&output_file, `
 stream_ptr: data.32 0
@@ -149,12 +132,104 @@ arg_0: data.32 0
 arg_1: data.32 0
 arg_2: data.32 0
 arg_3: data.32 0
-%s: data.8 0
-%s: data.fill 0, 30000
+temp_ch: data.8 0
+mem: data.fill 0, 30000
 #include "./fox32rom/fox32rom.def"
 #include "./fox32os/fox32os.def"
-`, TEMP_CHAR, MEM_NAME);
+`);
 	return 0;
 }
 
+enum Width : (String name)
+{
+	W8 = "8",
+	W16 = "16",
+	W32 = "32",
+}
 
+struct Fox32
+{
+	OutStream out;
+}
+
+macro void Fox32.const_(self, String name, val)
+{
+	io::fprintfn(self.out, "const %s: %s", name, val);
+}
+
+fn void Fox32.pop(self, String out, Width w = W32)
+{
+	io::fprintfn(self.out, "pop.%s %s", w.name, out);
+}
+
+macro void Fox32.add(&self, String out, num, Width w = W32)
+{
+	io::fprintfn(self.out, "add.%s %s, %s", w.name, out, num);
+}
+
+macro void Fox32.sub(self, String dst, src, Width w = W32)
+{
+	io::fprintfn(self.out, "sub.%s %s, %s", w.name, dst, src);
+}
+
+fn void Fox32.call(&self, String name)
+{
+	io::fprintfn(self.out, "call %s", name);
+}
+
+fn void Fox32.jmp(&self, String name)
+{
+	io::fprintfn(self.out, "jmp %s", name);
+}
+
+macro void Fox32.mov(&self, String dst, src, Width w = W32)
+{
+	io::fprintfn(self.out, "mov.%s %s, %s", w.name, dst, src);
+}
+
+macro void Fox32.cmp(&self, dst, src, Width w = W32)
+{
+	io::fprintfn(self.out, "cmp.%s %s, %s", w.name, dst, src);
+}
+
+fn void Fox32.brk(&self)
+{
+	io::fprintfn(self.out, "brk");
+}
+
+fn void Fox32.label(&self, String name)
+{
+	io::fprintfn(self.out, "%s:", name);
+}
+
+macro void Fox32.cond(&self, #cond, #inst, ...) @safemacro
+{
+	(void)io::fprintf(self.out, "if" +++ $stringify(#cond) +++ " ");
+	self.#inst($vasplat);
+}
+
+macro void Fox32.printci(&self, val)
+{
+	self.mov(TEMP_REG, val, W8);
+	self.printc();
+}
+
+fn void Fox32.printc(&self)
+{
+	self.mov("[temp_ch]", TEMP_REG, W8);
+	self.mov("r2", "temp_ch");
+	self.mov("r0", 1);
+	self.mov("r1", "[stream_ptr]");
+	self.call("write");
+}
+
+fn void Fox32.load_at_ptr(&self)
+{
+	self.mov(TEMP_REG, "mem");
+	self.add(TEMP_REG, MEM_PTR);
+}
+
+macro String Fox32.deref(self, String $val)
+{
+	return "[" +++ $val +++ "]";
+}
