@@ -11,6 +11,24 @@ const TEMP_REG = "r4";
 // const LOAD_AT_PTR = "mov " +++ TEMP_REG +++", " +++ MEM_NAME +++ `
 // add ` +++ TEMP_REG +++ ", " +++ MEM_PTR;
 
+enum BfInstType : char (inline char c)
+{
+	ADD = '+',
+	SUB = '-',
+	NEXT = '>',
+	PREV = '<',
+	PRINT = '.',
+	READ = ',',
+	JUMP_F = '[',
+	JUMP_B = ']',
+}
+
+struct BfInst
+{
+	BfInstType type;
+	char repeats;
+}
+
 fn int main(String[] args)
 {
 	if (args.len != 3)
@@ -35,6 +53,65 @@ fn int main(String[] args)
 	defer output_file.close()!!;
 	Fox32 fox32 = {&output_file};
 
+
+	List(<BfInst>) insts;
+	insts.new_init();
+	defer insts.free();
+
+	while (try char c = input_file.read_byte())
+	{
+		switch (c)
+		{
+			case '+':
+				if (insts.len() !=  0 && insts[^1].type == ADD)
+				{
+					insts[^1].repeats ++;
+				}
+				else
+				{
+					insts.push({ADD, 1});
+				}
+			case '-':
+				if (insts.len() !=  0 && insts[^1].type == SUB)
+				{
+					insts[^1].repeats ++;
+				}
+				else
+				{
+					insts.push({SUB, 1});
+				}
+			case '>':
+				if (insts.len() !=  0 && insts[^1].type == NEXT)
+				{
+					insts[^1].repeats ++;
+				}
+				else
+				{
+					insts.push({NEXT, 1});
+				}
+			case '<':
+				if (insts.len() !=  0 && insts[^1].type == PREV)
+				{
+					insts[^1].repeats ++;
+				}
+				else
+				{
+					insts.push({PREV, 1});
+				}
+			case '.':
+				insts.push({PRINT, 1});
+			case ',':
+				insts.push({READ, 1});
+			case '[':
+				insts.push({JUMP_F, 1});
+			case ']':
+				insts.push({JUMP_B, 1});
+			default:
+				break;
+		}
+	}
+
+
 	fox32.pop("[stream_ptr]");
 	fox32.pop("[arg_0]");
 	fox32.pop("[arg_1]");
@@ -51,58 +128,73 @@ fn int main(String[] args)
 	fox32.cmp("r0", 0);
 	fox32.cond(z, call, "end_current_task"); // Exit if allocation fails
 */
+
 	usz total_loops;
+	usz total_reads;
 	List(<usz>) braces;
 	braces.new_init();
 	defer braces.free();
 
-	usz i;
-	while (try char c = input_file.read_byte())
+	BfInstType prev;
+	foreach (i, inst : insts)
 	{
-		i++;
-		// if (i % 50 == 0) fox32.call("yield_task");
+		defer prev = inst.type;
+		if (i % 256 == 0)
+		{
+			fox32.push(MEM_PTR);
+			fox32.push(TEMP_REG);
+			fox32.call("yield_task");
+			fox32.pop(TEMP_REG);
+			fox32.pop(MEM_PTR);
+		}
 
 		// fox32.mov("r5", i);
 		// fox32.cmp(MEM_PTR, 1000);
 		// fox32.cond(gt, brk);
 		$if $feature(DEBUG):
-			if (try idx = "+-><[],.".index_of_char(c))
+			if (try idx = "+-><[],.".index_of_char(inst.type))
 			{
 				fox32.printcc(c);
-				fox32.printcc(0xFE);
-				fox32.printcc(0xFE);
-				fox32.printcc(0xFE);
+				fox32.flush();
 			}
 		$endif
 
-		// fox32.brk();
-		switch (c)
+		if (i == 0 || ((prev == '>' || prev == '<') && (inst.type != '<' && inst.type != '>')))
 		{
-			case '+':
-				// TODO: potential optimisation is to only call `load_at_ptr()` after `>` or `<` instead of here so >+++ loads once instead of 3 times
-				fox32.load_at_ptr();
-				fox32.add(fox32.deref(TEMP_REG), 1, W8);
-			case '-':
-				// TODO: same as above
-				fox32.load_at_ptr();
-				fox32.sub(fox32.deref(TEMP_REG), 1, W8);
-			case '>':
-				fox32.add(MEM_PTR, 1);
-				// fox32.load_at_ptr();
-			case '<':
-				fox32.sub(MEM_PTR, 1);
-				// fox32.load_at_ptr();
-			case '.':
-				// fox32.brk();
-				fox32.load_at_ptr();
+			// Loads the address of the current cell in memory pointed at by MEM_PTR into TEMP_REG
+			fox32.load_at_ptr();
+		}
+
+		switch (inst.type)
+		{
+			case ADD:
+
+				fox32.add(fox32.deref(TEMP_REG), inst.repeats, W8);
+			case SUB:
+				fox32.sub(fox32.deref(TEMP_REG), inst.repeats, W8);
+			case NEXT:
+				fox32.add(MEM_PTR, inst.repeats);
+			case PREV:
+				fox32.sub(MEM_PTR, inst.repeats);
+			case PRINT:
 				fox32.printc();
-			case ',':
-				// io::eprintfn("ERROR: '%c' unimplemented", c);
-				// return 1;
-				fox32.brk();
-			case '[':
-				// TODO: this also might be able to be removed, but only once I know everything works
-				fox32.load_at_ptr();
+			case READ:
+				@pool()
+				{
+					fox32.flush();
+					fox32.label(string::tformat("read_%s", total_reads));
+					fox32.mov("r0", 1);
+					fox32.mov("r1", "[stream_ptr]");
+					fox32.mov("r2", "temp_ch");
+					fox32.call("read");
+
+					fox32.cmp("[temp_ch]", 0, W8);
+					fox32.cond(z, jmp, string::tformat("read_%s", total_reads));
+				};
+
+				total_reads ++;
+
+			case JUMP_F:
 				fox32.cmp(0, fox32.deref(TEMP_REG), W8);
 				@pool()
 				{
@@ -112,18 +204,14 @@ fn int main(String[] args)
 
 				braces.push(total_loops);
 				total_loops ++;
-			case ']':
+			case JUMP_B:
 				usz idx = braces.pop()!!;
-				// TODO: same as above
-				fox32.load_at_ptr();
 				fox32.cmp(0, fox32.deref(TEMP_REG), W8);
 				@pool()
 				{
 					fox32.cond(nz, jmp, string::tformat("loop_start_%s", idx));
 					fox32.label(string::tformat("loop_end_%s", idx));
 				};
-			default:
-				io::eprintfn("WARN: ignoring char '%c'", c);
 		}
 	}
 
@@ -159,6 +247,11 @@ struct Fox32
 macro void Fox32.const_(self, String name, val)
 {
 	io::fprintfn(self.out, "const %s: %s", name, val);
+}
+
+fn void Fox32.push(self, String out, Width w = W32)
+{
+	io::fprintfn(self.out, "push.%s %s", w.name, out);
 }
 
 fn void Fox32.pop(self, String out, Width w = W32)
@@ -225,6 +318,13 @@ fn void Fox32.printc(&self)
 	self.mov("r0", 1);
 	self.mov("r1", "[stream_ptr]");
 	self.call("write");
+}
+
+fn void Fox32.flush(self)
+{
+	self.printcc(0xFE);
+	self.printc();
+	self.printc();
 }
 
 fn void Fox32.load_at_ptr(&self)
