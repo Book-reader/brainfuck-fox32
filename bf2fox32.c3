@@ -63,7 +63,7 @@ fn int main(String[] args)
 		switch (c)
 		{
 			case '+':
-				if (insts.len() !=  0 && insts[^1].type == ADD)
+				if (insts.len() !=  0 && insts[^1].type == ADD && insts[^1].repeats < char.max)
 				{
 					insts[^1].repeats ++;
 				}
@@ -72,7 +72,7 @@ fn int main(String[] args)
 					insts.push({ADD, 1});
 				}
 			case '-':
-				if (insts.len() !=  0 && insts[^1].type == SUB)
+				if (insts.len() !=  0 && insts[^1].type == SUB && insts[^1].repeats < char.max)
 				{
 					insts[^1].repeats ++;
 				}
@@ -81,7 +81,7 @@ fn int main(String[] args)
 					insts.push({SUB, 1});
 				}
 			case '>':
-				if (insts.len() !=  0 && insts[^1].type == NEXT)
+				if (insts.len() !=  0 && insts[^1].type == NEXT && insts[^1].repeats < char.max)
 				{
 					insts[^1].repeats ++;
 				}
@@ -90,7 +90,7 @@ fn int main(String[] args)
 					insts.push({NEXT, 1});
 				}
 			case '<':
-				if (insts.len() !=  0 && insts[^1].type == PREV)
+				if (insts.len() !=  0 && insts[^1].type == PREV && insts[^1].repeats < char.max)
 				{
 					insts[^1].repeats ++;
 				}
@@ -129,8 +129,7 @@ fn int main(String[] args)
 	fox32.cond(z, call, "end_current_task"); // Exit if allocation fails
 */
 
-	usz total_loops;
-	usz total_reads;
+	usz hash;
 	List(<usz>) braces;
 	braces.new_init();
 	defer braces.free();
@@ -148,9 +147,12 @@ fn int main(String[] args)
 			fox32.pop(MEM_PTR);
 		}
 
-		// fox32.mov("r5", i);
-		// fox32.cmp(MEM_PTR, 1000);
-		// fox32.cond(gt, brk);
+		$if $feature(SAFETY):
+			fox32.mov("r5", i);
+			fox32.cmp(MEM_PTR, 30000);
+			fox32.cond(gt, brk);
+		$endif
+
 		$if $feature(DEBUG):
 			if (try idx = "+-><[],.".index_of_char(inst.type))
 			{
@@ -168,7 +170,6 @@ fn int main(String[] args)
 		switch (inst.type)
 		{
 			case ADD:
-
 				fox32.add(fox32.deref(TEMP_REG), inst.repeats, W8);
 			case SUB:
 				fox32.sub(fox32.deref(TEMP_REG), inst.repeats, W8);
@@ -176,41 +177,57 @@ fn int main(String[] args)
 				fox32.add(MEM_PTR, inst.repeats);
 			case PREV:
 				fox32.sub(MEM_PTR, inst.repeats);
+				/*@pool()
+				{
+					String label_over = string::tformat("prev_overflow_%s", hash);
+					String label_done = string::tformat("prev_done_%s", hash);
+					
+					fox32.cmp(inst.repeats, MEM_PTR);
+					fox32.cond(gt, jmp, label_over);
+					fox32.sub(MEM_PTR, inst.repeats);
+					fox32.rjmp(label_done, W8);
+
+					fox32.label(label_over);
+					fox32.brk();
+
+					fox32.label(label_done);
+				};
+				hash ++;*/
 			case PRINT:
 				fox32.printc();
 			case READ:
 				@pool()
 				{
 					fox32.flush();
-					fox32.label(string::tformat("read_%s", total_reads));
+					fox32.label(string::tformat("read_%s", hash));
 					fox32.mov("r0", 1);
 					fox32.mov("r1", "[stream_ptr]");
 					fox32.mov("r2", "temp_ch");
 					fox32.call("read");
 
 					fox32.cmp("[temp_ch]", 0, W8);
-					fox32.cond(z, jmp, string::tformat("read_%s", total_reads));
+					fox32.cond(z, jmp, string::tformat("read_%s", hash));
 				};
 
-				total_reads ++;
+				hash ++;
 
 			case JUMP_F:
 				fox32.cmp(0, fox32.deref(TEMP_REG), W8);
 				@pool()
 				{
-					fox32.cond(z, jmp, string::tformat("loop_end_%s", total_loops));
-					fox32.label(string::tformat("loop_start_%s", total_loops));
+					fox32.cond(z, jmp, string::tformat("loop_end_%s", hash));
+					fox32.label(string::tformat("loop_start_%s", hash));
 				};
 
-				braces.push(total_loops);
-				total_loops ++;
+				braces.push(hash);
+				hash ++;
 			case JUMP_B:
-				usz idx = braces.pop()!!;
+				usz matching_hash = braces.pop()!!;
 				fox32.cmp(0, fox32.deref(TEMP_REG), W8);
 				@pool()
 				{
-					fox32.cond(nz, jmp, string::tformat("loop_start_%s", idx));
-					fox32.label(string::tformat("loop_end_%s", idx));
+					fox32.cond(nz, jmp, string::tformat("loop_start_%s", matching_hash));
+					fox32.label(string::tformat("loop_end_%s", matching_hash));
 				};
 		}
 	}
@@ -244,52 +261,59 @@ struct Fox32
 	OutStream out;
 }
 
+def @Inst = {@tag("inst", true)};
+
 macro void Fox32.const_(self, String name, val)
 {
 	io::fprintfn(self.out, "const %s: %s", name, val);
 }
 
-fn void Fox32.push(self, String out, Width w = W32)
+fn void Fox32.push(self, String out, Width w = W32) @Inst
 {
 	io::fprintfn(self.out, "push.%s %s", w.name, out);
 }
 
-fn void Fox32.pop(self, String out, Width w = W32)
+fn void Fox32.pop(self, String out, Width w = W32) @Inst
 {
 	io::fprintfn(self.out, "pop.%s %s", w.name, out);
 }
 
-macro void Fox32.add(&self, String out, num, Width w = W32)
+macro void Fox32.add(&self, String out, num, Width w = W32) @Inst
 {
 	io::fprintfn(self.out, "add.%s %s, %s", w.name, out, num);
 }
 
-macro void Fox32.sub(self, String dst, src, Width w = W32)
+macro void Fox32.sub(self, String dst, src, Width w = W32) @Inst
 {
 	io::fprintfn(self.out, "sub.%s %s, %s", w.name, dst, src);
 }
 
-fn void Fox32.call(&self, String name)
+fn void Fox32.call(&self, String name) @Inst
 {
 	io::fprintfn(self.out, "call %s", name);
 }
 
-fn void Fox32.jmp(&self, String name)
+fn void Fox32.jmp(&self, String name) @Inst
 {
 	io::fprintfn(self.out, "jmp %s", name);
 }
 
-macro void Fox32.mov(&self, String dst, src, Width w = W32)
+fn void Fox32.rjmp(&self, String name, Width w) @Inst
+{
+	io::fprintfn(self.out, "rjmp.%s %s", w.name, name);
+}
+
+macro void Fox32.mov(&self, String dst, src, Width w = W32) @Inst
 {
 	io::fprintfn(self.out, "mov.%s %s, %s", w.name, dst, src);
 }
 
-macro void Fox32.cmp(&self, dst, src, Width w = W32)
+macro void Fox32.cmp(&self, dst, src, Width w = W32) @Inst
 {
 	io::fprintfn(self.out, "cmp.%s %s, %s", w.name, dst, src);
 }
 
-fn void Fox32.brk(&self)
+fn void Fox32.brk(&self) @Inst
 {
 	io::fprintfn(self.out, "brk");
 }
@@ -301,6 +325,9 @@ fn void Fox32.label(&self, String name)
 
 macro void Fox32.cond(&self, #cond, #inst, ...) @safemacro
 {
+	$if !$typeof(*self).#inst.has_tagof("inst"):
+		$error("can only use Fox32.cond with single instruction functions (e.g mov, jmp). if it is one mark it with @Inst");
+	$endif
 	(void)io::fprintf(self.out, "if" +++ $stringify(#cond) +++ " ");
 	self.#inst($vasplat);
 }

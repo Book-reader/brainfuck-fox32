@@ -1,4 +1,4 @@
 { pkgs ? import <nixpkgs> {} }:
 pkgs.mkShellNoCC {
-	packages = with pkgs; [ gnumake lua54Packages.lua python3 ];
+	packages = with pkgs; [ gnumake lua54Packages.lua python3 gcc ];
 }
