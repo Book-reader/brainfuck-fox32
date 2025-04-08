@@ -226,8 +226,8 @@ arg_3: data.32 0
 temp_ch: data.8 0
 ; mem: data.32 0
 mem: data.fill 0, 30000
-#include "./fox32rom/fox32rom.def"
-#include "./fox32os/fox32os.def"
+#include "../fox32rom/fox32rom.def"
+#include "../fox32os/fox32os.def"
 `);
 	return 0;
 }
