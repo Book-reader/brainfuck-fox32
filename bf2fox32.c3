@@ -242,16 +242,20 @@ fn int main(String[] args)
 							fox32.flush();
 						};
 
+						// If the value was backspace, delete it
+						fox32.cmp("[r2]", 0x08, W8);
+						fox32.cond(z, mov, "[r2]", 0);
+						// TODO: this will overflow if I delete too many times. guard against it with $feature(SAFETY)
+						fox32.cond(z, sub, "[input_buf_idx]", 2);
+						// fox32.cond(z, call, "print_backspace"); // Doesn't always seem to work
+
 						// If the value wasn't a new line, go again
 						fox32.cmp("[r2]", 0x0A, W8);
 						fox32.cond(nz, jmp, read_buf_name);
 
-						// TODO: I don't actually seem to get the backspace? but it works sometimes? maybe input handling on Lost Kingdom is messed up
-						fox32.cmp("[r2]", 0x08, W8);
-						fox32.cond(z, call, "print_backspace");
-
 						// If the value was a new line, 
 						fox32.label(read_fill_name);
+						// fox32.brk();
 						fox32.mov(TEMP_REG, "input_buf");
 						fox32.add(TEMP_REG, "[input_buf_rev_idx]");
 						fox32.mov(fox32.deref(CELL_REG), fox32.deref(TEMP_REG));
@@ -309,8 +313,12 @@ fn int main(String[] args)
 
 	fox32.@label("print_backspace")
 	{
-		fox32.print("backspace", 3);
-		fox32.flush();
+		fox32.@save("r0", "r2")
+		{
+			fox32.brk();
+			fox32.print("backspace", 2);
+			fox32.flush();
+		};
 		fox32.ret();
 	};
 
@@ -322,7 +330,7 @@ fn int main(String[] args)
 	fox32.data("temp_ch");
 	fox32.data("mem");
 	fox32.data_fill("flush_data", 3, 0xFE);
-	fox32.data_many("backspace", Width.W8, 0x08, Width.W8, 0x20, Width.W8, 0x08);
+	fox32.data_many("backspace", Width.W8, 0x20, Width.W8, 0x08);
 	$if !$feature(NO_INPUT_BUF):
 		fox32.data("input_buf_idx");
 		fox32.data("input_buf_rev_idx");
