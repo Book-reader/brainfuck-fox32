@@ -1,0 +1,35 @@
+#INCLUDE "fox32rom.hjk"
+#INCLUDE "fox32os.hjk"
+
+EXTERN FN StrLen (
+	IN String: ^UBYTE
+) : UWORD
+
+
+PUBLIC StreamPtr: ^VOID
+
+#ASM [
+	pop [StreamPtr]
+	pop r0
+	pop r0
+	pop r0
+	pop r0
+	jmp Main
+]
+
+FN Main ()
+	test := "Hello from jackal\n"
+	Write(StreamPtr, &test[0], StrLen(test))
+	EndCurrentTask()
+END
+
+FN StrLen (
+	IN String: ^UBYTE
+) : UWORD
+	i := 0
+	WHILE String[i] != 0 DO
+		i += 1
+	END
+	// it didn't complain when I didn't include this lol
+	RETURN i
+END
