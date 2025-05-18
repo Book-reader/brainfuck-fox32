@@ -13,8 +13,37 @@
 
 EXTERN FN EndCurrentTask ()
 
+EXTERN FN GetCurrentDiskId () : ULONG
+
 EXTERN FN Write (
-	IN outstream: ^VOID,
+	IN stream: ^File,
 	IN buf: ^VOID,
-	IN len: UWORD
+	IN len: UWORD,
 )
+
+EXTERN FN OpenFile (
+	IN file_name: ^UBYTE,
+	IN disk_id: UWORD,
+	IN file: ^File,
+) : ULONG
+
+
+// From https://github.com/OliveIsAWord/hjkl/blob/80a0723603adf8c1d3f0e75562f469b79b4e8a46/src/os.hjk#L116
+STRUCT PACKED _Stream
+	_Reserved1 : UBYTE,
+	_Reserved2 : UINT,
+	SeekOffset : ULONG,
+	Type : UBYTE,
+	ReadCall : ^VOID,
+	WriteCall : ^VOID,
+	Size : UWORD,
+	_Reserved : ULONG[3]
+END
+
+STRUCT PACKED File
+	Disk : UBYTE,
+	FirstSector : UINT,
+	SeekOffset : ULONG,
+	Type : UBYTE,
+	_Reserved : ULONG[6],
+END

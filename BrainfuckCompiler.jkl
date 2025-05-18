@@ -2,15 +2,16 @@
 #INCLUDE "fox32os.hjk"
 
 EXTERN FN StrLen (
-	IN String: ^UBYTE
+	IN string: ^UBYTE
 ) : UWORD
 
 
-PUBLIC StreamPtr: ^VOID
+StreamPtr: ^File
+Arg_0: ^UBYTE
 
 #ASM [
 	pop [StreamPtr]
-	pop r0
+	pop [Arg_0]
 	pop r0
 	pop r0
 	pop r0
@@ -18,16 +19,21 @@ PUBLIC StreamPtr: ^VOID
 ]
 
 FN Main ()
-	test := "Hello from jackal\n"
-	Write(StreamPtr, &test[0], StrLen(test))
+	// test := "Hello from jackal\n"
+	out_file: File
+	IF OpenFile(Arg_0, GetCurrentDiskId(), &out_file) == 0 THEN
+		EndCurrentTask()
+	END
+	Write(StreamPtr, Arg_0, StrLen(Arg_0))
+	Write(StreamPtr, "\n", 1)
 	EndCurrentTask()
 END
 
 FN StrLen (
-	IN String: ^UBYTE
+	IN string: ^UBYTE
 ) : UWORD
 	i := 0
-	WHILE String[i] != 0 DO
+	WHILE string[i] != 0 DO
 		i += 1
 	END
 	// it didn't complain when I didn't include this lol

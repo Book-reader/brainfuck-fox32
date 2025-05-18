@@ -66,4 +66,19 @@ Write:
 EndCurrentTask:
 .global EndCurrentTask
 	jmp end_current_task
+
+OpenFile:
+.global OpenFile
+	mov r0, a0
+	mov r1, a1
+	mov r2, a2
+	call open
+	mov a3, r0
+	ret
+
+GetCurrentDiskId:
+.global GetCurrentDiskId
+	call get_current_disk_id
+	mov a0, r0
+	ret
 ]
