@@ -12,7 +12,7 @@ $ ryfs.py add <disk image> bf.fxf
 $ ryfs.py add <disk image> files/<filename>.b
 ```
 
-### running
+### running (inside fox32)
 
 ```console
 $ disk 1 # assuming it's in the first disk
@@ -27,7 +27,7 @@ $ bf <filename>.b
 $ c3c compile bf2fox32.c3
 ```
 
-### usage
+### running
 
 ```console
 $ ./bf2fox32 <filename>.b <filename>.asm
