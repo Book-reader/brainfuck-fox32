@@ -16,7 +16,6 @@ pop [arg_1]
 pop [arg_2]
 pop [arg_3]
 
-; TODO: find the current disk in the shell, or do disk:file like the shell does eg: `bf 1:fib.b`
 mov r0, [arg_0]
 push r0
 call get_current_disk_id
