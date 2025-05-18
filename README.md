@@ -1,15 +1,36 @@
 # Brainfuck for the fox32 fantasy cpu
 
-it is really bad please don't look to closely
+it is really bad please don't look too closely
 
-usage:
+## usage (fox32 native interpreter):
 
+### building
+
+```console
+$ fox32asm brainfrick.asm bf.fxf
+$ ryfs.py add <disk image> bf.fxf
+$ ryfs.py add <disk image> files/<filename>.b
 ```
-disk 1
 
-bf filename.b
+### running
+
+```console
+$ disk 1 # assuming it's in the first disk
+$ bf <filename>.b
 ```
 
-### TODO
- - the input command (,) does not seem to properly handle backspace
- - the program can only read files from disk 1
+## usage (bf2fox32 compiler)
+
+### building
+
+```console
+$ c3c compile bf2fox32.c3
+```
+
+### usage
+
+```console
+$ ./bf2fox32 <filename>.b <filename>.asm
+$ fox32asm <filename>.asm <filename.fxf>
+$ ryfs.py add <disk image> <filename>.fxf
+```
